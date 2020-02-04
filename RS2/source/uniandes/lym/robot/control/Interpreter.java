@@ -123,58 +123,68 @@ public class Interpreter   {
 					String dentroParentesis = instruc.substring(7, instruc.length()-1);
 					String[] partesParentesis = dentroParentesis.split(",");
 					String variable = partesParentesis[0];
-					int numero = Integer.parseInt(partesParentesis[1]);
+					int number = Integer.parseInt(partesParentesis[1]);
 
-					assignTo(variable, numero);
+					assignTo(variable, number);
 				}
 
-				else if( instruc.startsWith("move") )
+				else if( instruc.startsWith("move(") )
 				{
-					String inParentheses1 =instruc.substring(5, instruc.length()-1);
-					move(inParentheses1);
+					String inParentheses =instruc.substring(5, instruc.length()-1);
+					move(inParentheses);
 				}
 
 				else if(instruc.startsWith("turn"))
 				{
-					String dentroParentesis = instruc.substring(5, instruc.length()-1);
-					String sentido = dentroParentesis;
-					turn(sentido);
+					String inParentheses = instruc.substring(5, instruc.length()-1);
+					String orient = inParentheses;
+					turn(orient);
 
 				}
 				else if(instruc.startsWith("face"))
 				{
-					String dentroParentesis = instruc.substring(5, instruc.length()-1);
-					int cardinalidad = Integer.parseInt(dentroParentesis);
+					String inParentheses = instruc.substring(5, instruc.length()-1);
+					int quantity = Integer.parseInt(inParentheses);
 
-					face(cardinalidad);
+					face(quantity);
 
 				}
 				else if(instruc.startsWith("put"))
 				{
-					String dentroParentesis = instruc.substring(4, instruc.length()-1);
-					String[] partesParentesis = dentroParentesis.split(",");
-					String objeto = partesParentesis[0];
-					String cantidad = partesParentesis[1];
+					String inParentheses = instruc.substring(4, instruc.length()-1);
+					String[] partsParentheses = inParentheses.split(",");
+					String object = partsParentheses[0];
+					String quantity = partsParentheses[1];
 
-					putNumberOf(objeto, cantidad);
+					putNumberOf(object, quantity);
 
 				}
 				else if( instruc.startsWith("pick") )
 				{
-					String inParentheses5 =instruc.substring(5, instruc.length()-1);
-					String[] values3 = inParentheses5.split(",");
-					String name4 =values3[0];
-					String name5 =values3[1];
+					String inParentheses =instruc.substring(5, instruc.length()-1);
+					String[] partsParentheses = inParentheses.split(",");
+					String object = partsParentheses[0];
+					String quantity = partsParentheses[1];
 
-					pickNumberOf(name4, name5);
+					pickNumberOf(object, quantity);
 				}
 				else if( instruc.startsWith("moveToThe") )
 				{
-					String inParentheses1 =instruc.substring(9, instruc.length()-1);
-					String [] partsParentheses = inParentheses1.split(",");
-					String name6 =partsParentheses[0];
-					String name7 =partsParentheses[1];
-					moveToThe(name6,name7);
+					String inParentheses =instruc.substring(10, instruc.length()-1);
+					String [] partsParentheses = inParentheses.split(",");
+					String quantity =partsParentheses[0];
+					String orientation =partsParentheses[1];
+					
+					moveToThe(quantity,orientation);
+				}
+				else if( instruc.startsWith("moveInDir") )
+				{
+					String inParentheses =instruc.substring(10, instruc.length()-1);
+					String [] partsParentheses = inParentheses.split(",");
+					String quantity =partsParentheses[0];
+					int direction =Integer.parseInt(partsParentheses[1]);
+					
+					moveInDir(quantity,direction);
 				}
 			}
 		}
@@ -469,12 +479,12 @@ public class Interpreter   {
 				try
 				{
 					number = Integer.parseInt(n);
-					world.moveVertically(-number);
+					world.moveVertically(number);
 				}
 				catch( Exception e )
 				{
 					number = hashVariables.get(n);
-					world.moveVertically(-number);
+					world.moveVertically(number);
 				}
 			}
 		}
@@ -516,24 +526,6 @@ public class Interpreter   {
 	public void moveInDir(String n, int O){
 		face(O);
 		move(n);
-	}
-
-	/**
-	 * Checks if the parameter string is a number or not
-	 * @param string
-	 * @return true if the string is a number; false if it is not.
-	 */
-	private boolean isNumeric(String string)
-	{
-		try 
-		{
-			Integer.parseInt(string);
-			return true;
-		} 
-		catch (NumberFormatException nfe)
-		{
-			return false;
-		}
 	}
 
 }
