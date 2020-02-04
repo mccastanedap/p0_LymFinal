@@ -62,6 +62,7 @@ public class Interpreter   {
 	public Interpreter(RobotWorld mundo)
 	{
 		this.world =  (RobotWorldDec) mundo;
+		hashVariables =new HashMap<String,Integer>();
 
 	}
 
@@ -390,12 +391,12 @@ public class Interpreter   {
 		try
 		{
 
-			if(ballonsChips== BALLOONS)
+			if(ballonsChips.equals(BALLOONS))
 			{
 				number = Integer.parseInt(n);
 				world.putBalloons(number);
 			}
-			else if(ballonsChips== CHIPS)
+			else if(ballonsChips.equals(CHIPS))
 			{
 				number = Integer.parseInt(n);
 				world.putChips(number);
@@ -404,11 +405,11 @@ public class Interpreter   {
 		catch(Exception e){
 
 
-			if(ballonsChips== BALLOONS){
+			if(ballonsChips.equals(BALLOONS)){
 				number= hashVariables.get(n);
 				world.putBalloons(number);
 			}
-			else if(ballonsChips== CHIPS){
+			else if(ballonsChips.equals(CHIPS)){
 				number= hashVariables.get(n);
 				world.putChips(number);
 			}
@@ -424,12 +425,12 @@ public class Interpreter   {
 		int number;
 		try
 		{
-			if(ballonsChips== BALLOONS)
+			if(ballonsChips.equals(BALLOONS))
 			{
 				number = Integer.parseInt(n);
 				world.grabBalloons(number);
 			}
-			else if(ballonsChips== CHIPS)
+			else if(ballonsChips.equals(CHIPS))
 			{
 				number = Integer.parseInt(n);
 				world.pickChips(number);
@@ -437,12 +438,12 @@ public class Interpreter   {
 		}
 		catch(Exception e)
 		{
-			if(ballonsChips== BALLOONS)
+			if(ballonsChips.equals(BALLOONS))
 			{
 				number= hashVariables.get(n);
 				world.grabBalloons(number);
 			}
-			else if(ballonsChips== CHIPS)
+			else if(ballonsChips.equals(CHIPS))
 			{
 				number= hashVariables.get(n);
 				world.pickChips(number);
@@ -461,7 +462,6 @@ public class Interpreter   {
 
 		try
 		{
-
 			number = Integer.parseInt(n);
 			if(!world.estaArriba() && direction.equals(FRONT) ){
 				world.moveVertically(number);
