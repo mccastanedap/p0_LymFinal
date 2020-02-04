@@ -131,28 +131,7 @@ public class Interpreter   {
 				else if( instruc.startsWith("move") )
 				{
 					String inParentheses1 =instruc.substring(5, instruc.length()-1);
-					if( inParentheses1.length() == 1 )
-					{
-						move(inParentheses1);
-					}
-					else if(inParentheses1.length() ==2 )
-					{
-						String[] values1 =inParentheses1.split(",");
-						String name1 =values1[0];
-
-						if( isNumeric(values1[1]) )
-						{
-							int num1 =Integer.parseInt(values1[1]);
-							moveInDir(name1,num1);
-						}
-						else if( values1[1].equals(FRONT) || values1[1].equals(RIGHT) || values1[1].equals(LEFT) || values1[1].equals(BACK) )
-						{
-							String var1 =values1[1];
-							moveToThe(name1,var1);
-						}
-
-					}
-
+					move(inParentheses1);
 				}
 
 				else if(instruc.startsWith("turn"))
@@ -188,6 +167,14 @@ public class Interpreter   {
 					String name5 =values3[1];
 
 					pickNumberOf(name4, name5);
+				}
+				else if( instruc.startsWith("moveToThe") )
+				{
+					String inParentheses1 =instruc.substring(9, instruc.length()-1);
+					String [] partsParentheses = inParentheses1.split(",");
+					String name6 =partsParentheses[0];
+					String name7 =partsParentheses[1];
+					moveToThe(name6,name7);
 				}
 			}
 		}
@@ -458,40 +445,72 @@ public class Interpreter   {
 	public void moveToThe(String n, String direction)
 	{
 		int number;
+		if( direction.equals(BACK) )
+		{			
+			if( !world.estaAbajo() ) 
+			{
+				try
+				{
+					number = Integer.parseInt(n);
+					world.moveVertically(-number);
+				}
+				catch( Exception e )
+				{
+					number = hashVariables.get(n);
+					world.moveVertically(-number);
+				}
+			}
 
-
-		try
+		}
+		else if( direction.equals(FRONT) )
 		{
-			number = Integer.parseInt(n);
-			if(!world.estaArriba() && direction.equals(FRONT) ){
-				world.moveVertically(number);
-			}
-			else if(!world.estaAbajo() && direction.equals(BACK)){
-				world.moveVertically(-number);
-			}
-			else if(!world.estaDerecha() && direction.equals(RIGHT)){
-				world.moveHorizontally(number);
-			}
-			else if(!world.estaIzquierda() && direction.equals(LEFT)){
-				world.moveHorizontally(-number);
+			if( !world.estaArriba() )
+			{
+				try
+				{
+					number = Integer.parseInt(n);
+					world.moveVertically(-number);
+				}
+				catch( Exception e )
+				{
+					number = hashVariables.get(n);
+					world.moveVertically(-number);
+				}
 			}
 		}
-		catch(Exception e)
+		else if( direction.equals(LEFT) )
 		{
-			number=hashVariables.get(n);
-			if(!world.estaArriba() && direction.equals(FRONT) ){
-				world.moveVertically(number);
-			}
-			else if(!world.estaAbajo() && direction.equals(BACK)){
-				world.moveVertically(-number);
-			}
-			else if(!world.estaDerecha() && direction.equals(RIGHT)){
-				world.moveHorizontally(number);
-			}
-			else if(!world.estaIzquierda() && direction.equals(LEFT)){
-				world.moveHorizontally(-number);
+			if( !world.estaIzquierda() )
+			{
+				try
+				{
+					number = Integer.parseInt(n);
+					world.moveHorizontally(-number);
+				}
+				catch( Exception e )
+				{
+					number = hashVariables.get(n);
+					world.moveHorizontally(-number);
+				}
 			}
 		}
+		else if( direction.equals(RIGHT) )
+		{
+			if( !world.estaDerecha() )
+			{
+				try
+				{
+					number = Integer.parseInt(n);
+					world.moveHorizontally(number);
+				}
+				catch( Exception e )
+				{
+					number = hashVariables.get(n);
+					world.moveHorizontally(number);
+				}
+			}
+		}
+
 	}
 
 	public void moveInDir(String n, int O){
