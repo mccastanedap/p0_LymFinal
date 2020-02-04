@@ -9,6 +9,11 @@ import uniandes.lym.robot.kernel.*;
 
 
 
+// Mhjahcuiasui 2153532
+// Nicolas Rodriguez - 201822980  
+
+
+
 /**
  * Receives commands and relays them to the Robot. 
  */
