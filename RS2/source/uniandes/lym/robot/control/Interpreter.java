@@ -462,12 +462,12 @@ public class Interpreter   {
 				try
 				{
 					number = Integer.parseInt(n);
-					world.moveVertically(-number);
+					world.moveVertically(number);
 				}
 				catch( Exception e )
 				{
 					number = hashVariables.get(n);
-					world.moveVertically(-number);
+					world.moveVertically(number);
 				}
 			}
 
@@ -479,12 +479,12 @@ public class Interpreter   {
 				try
 				{
 					number = Integer.parseInt(n);
-					world.moveVertically(number);
+					world.moveVertically(-number);
 				}
 				catch( Exception e )
 				{
 					number = hashVariables.get(n);
-					world.moveVertically(number);
+					world.moveVertically(-number);
 				}
 			}
 		}
